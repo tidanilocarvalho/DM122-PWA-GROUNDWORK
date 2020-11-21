@@ -17,6 +17,16 @@ self.addEventListener('activate', event => {
   console.log('[Service Worker] Activating service work...')
 })
 
+async function networkFirst(request) {
+  try {
+    return await fetch(request);
+  } catch {
+    const cache = await caches.open('app-shell-v1');
+    return cache.match('offline.html');
+  }
+}
+
 self.addEventListener('fetch', event => {
-  console.log('[Service Worker] Fetch event...', event)
+  //console.log('[Service Worker] Fetch event...', event)
+  event.respondWith(networkFirst(event.request));
 });

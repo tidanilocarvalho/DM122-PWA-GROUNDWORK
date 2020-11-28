@@ -18,6 +18,7 @@ class App {
 
         if (keyInput.value && valueInput.value) {
             localStorage.setItem(keyInput.value, valueInput.value);
+            this.listStorageValues();
         }
     }
 
@@ -30,6 +31,7 @@ class App {
         }
 
         const htmlOutPut = Object.keys(localStorage)
+            .sort()
             .map(toHtml)
             .join("");
 

@@ -27,20 +27,19 @@ class App {
         }
     }
 
-    listStorageValues() {
+    async listStorageValues() {
         const storageValues = document.getElementById("valuesList");
 
-        const toHtml = (key) => {
-            const value = localStorage.getItem(key);
+        const toHtml =  async (key) => {
+            const value = await getItem(key);
+            console.log(value);
             return `<p>${key}: ${value}</p>`;
         }
 
-        const htmlOutPut = Object.keys(localStorage)
-            .sort()
-            .map(toHtml)
-            .join("");
+        const keys = await getKeys();
+        const htmlOutput = await Promise.all(keys.map(toHtml));
 
-        storageValues.innerHTML = htmlOutPut;
+        storageValues.innerHTML = htmlOutput.join("");
     }
 }
 

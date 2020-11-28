@@ -66,7 +66,7 @@ export default class HtmlService {
 
       button.textContent = "x";
       button.addEventListener("click", (event) => {
-          event.preventDefault();
+          event.stopPropagation();
           this.deleteTask(li);
       });
   
